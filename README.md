@@ -10,5 +10,4 @@ Basic standards, not all of which are implemented yet:
 * Y-axis numbers set horizontally.
 * Colors, if any, should be interpretable by dichromats and by those who printed the paper in black and white. 
 
-
-Currently provides one ggplot2 theme optimized for single-panel X-Y plots. Please help me add others!
+Currently provides one ggplot2 theme optimized for single-panel X-Y plots. Please help me add others. Let's add some for Lattice approaches... and for plain old base graphics too!
