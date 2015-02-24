@@ -1,4 +1,4 @@
-theme_delucia = function(...){
+theme_ggEHD = function(...){
 	(theme_bw() %+% theme(
 		panel.grid.major = element_blank(),
 		panel.grid.minor = element_blank(),
