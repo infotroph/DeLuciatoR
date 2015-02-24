@@ -12,6 +12,7 @@ theme_ggEHD = function(...){
 			vjust=0.5,
 			angle=0),
 		axis.title=element_text(vjust=0.3),
+		aspect.ratio=0.75,
 		...
 	))
 }
