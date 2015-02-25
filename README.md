@@ -12,4 +12,4 @@ Basic goals, not all of which are implemented yet:
 
 Currently provides one ggplot2 theme optimized for single-panel X-Y plots. Please help me add others. Let's add some for Lattice approaches... and for plain old base graphics too!
 
-To provide ticks on all sides of a ggplot, I rely on some hacky code that mirrors the axes after the rest of the plot is constructed. I will eventually polish this up and make it available as a freestanding R package; for now, [grab it from GitHub]((https://github.com/infotroph/ggplot-ticks) and do what you like with it.
+To provide ticks on all sides of a ggplot, I rely on some hacky code that mirrors the axes after the rest of the plot is constructed. I will eventually polish this up and make it available as a freestanding R package; for now, [grab it from GitHub](https://github.com/infotroph/ggplot-ticks) and do what you like with it.
