@@ -4,6 +4,8 @@ theme_ggEHD = function(base_size=18, ...){
 		panel.grid.minor = element_blank(),
 		rect = element_rect(size=rel(0.75)),
 		line = element_line(size=rel(1)),
+		axis.line = element_line(size=rel(1)),
+		axis.ticks = element_line(size=rel(1)),
 		axis.ticks.length = unit(-(base_size*0.5), "points"),
 		axis.ticks.margin = unit((base_size*1.5), "points"),
 		plot.margin = unit(base_size*c(1,1,1,1), "points"),
