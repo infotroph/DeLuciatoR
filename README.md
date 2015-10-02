@@ -41,7 +41,6 @@ The ggplot2 package is... Let's say "opinionated"... about whether you should ad
 source_url("https://raw.githubusercontent.com/infotroph/ggplot-ticks/master/mirror.ticks.r")
 # Or if you keep a local copy, source("path/to/my/mirror.ticks.r")
 
-
 # This is a *ggplot* object and can be modified all the usual ways
 twoticks = ggplot(...)+geom_point()+...+theme_ggEHD()
 twoticks+theme(legend.position="none")
