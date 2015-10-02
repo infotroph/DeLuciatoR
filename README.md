@@ -4,7 +4,7 @@ A few tools to help the DeLucia lab make R plots look the way Evan wants them. I
 
 Basic goals, not all of which are implemented yet:
 
-- [ ] All text and markings large enough to be *easily* readable when reduced to a tiny subfigure or crammed into a low-rez powerpoint slide. Prtly implemented, needs work.
+- [ ] All text and markings large enough to be *easily* readable when reduced to a tiny subfigure or crammed into a low-rez powerpoint slide. Partly implemented, needs work.
 - [x] 1.33:1 aspect ratio (Y axis 3/4 as tall as X axis is long).
 - [ ] Ticks on all sides, facing inward. 'Inward' part is done, 'all sides' part is ugly (see below) and needs more work.
 - [x] Y-axis numbers set horizontally.
