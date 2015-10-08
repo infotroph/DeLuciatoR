@@ -25,7 +25,7 @@ library("DeLuciatoR")
 The hard way, in a terminal window (you only need to do this if you want to make your own changes to the package):
 
 ```
-git clone git@github.com:infotroph/DeLuciatoR.git
+git clone https://github.com/infotroph/DeLuciatoR.git
 # Edit any files you like here
 R CMD build DeLuciatoR
 R CMD check DeLuciator_0.0.1.tar.gz
@@ -41,14 +41,14 @@ The ggplot2 package is... Let's say "opinionated"... about whether you should ad
 source_url("https://raw.githubusercontent.com/infotroph/ggplot-ticks/master/mirror.ticks.r")
 # Or if you keep a local copy, source("path/to/my/mirror.ticks.r")
 
-# This is a *ggplot* object and can be modified all the usual ways
+# twoticks is a *ggplot* object and can be modified all the usual ways
 twoticks = ggplot(...)+geom_point()+...+theme_ggEHD()
 twoticks+theme(legend.position="none")
 
-# This is a *gtable* object, meaning it:
+# fourticks is a *gtable* object, meaning it:
 # 	* Can't be further modified by ggplot functions
 # 	* Won't plot automatically; you have to explicitly call plot()
-fourticks = mirror.ticks()
+fourticks = mirror.ticks(twoticks)
 
 png(filename="my_Nature_submission.png", height=4, width=8, units="cm")
 plot(fourticks)
