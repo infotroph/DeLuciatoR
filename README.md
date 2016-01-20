@@ -35,11 +35,11 @@ R CMD install DeLuciator_0.0.1.tar.gz
 
 ## That 'ticks on all sides' thing
 
-The ggplot2 package is... Let's say "opinionated"... about whether you should add extra axes to a plot, and therefore provides no easy way to put ticks on all sides. To get around this, I rely on some hacky code that mirrors the axes after the rest of the plot is constructed. I will eventually polish this up and make this package use it automatically; for now, [grab it from GitHub](https://github.com/infotroph/ggplot-ticks) and use it as the last step before plotting:
+The ggplot2 package is... Let's say "opinionated"... about whether you should add extra axes to a plot, and therefore provides no easy way to put ticks on all sides. To get around this, I rely on some hacky code that mirrors the axes after the rest of the plot is constructed. I will eventually polish this up and make this package use it automatically; for now, [grab it from GitHub](https://github.com/infotroph/ggplotTicks) and use it as the last step before plotting:
 
 ```
-source_url("https://raw.githubusercontent.com/infotroph/ggplot-ticks/master/mirror.ticks.r")
-# Or if you keep a local copy, source("path/to/my/mirror.ticks.r")
+install_github("infotroph/ggplotTicks")
+library("ggplotTicks")
 
 # twoticks is a *ggplot* object and can be modified all the usual ways
 twoticks = ggplot(...)+geom_point()+...+theme_ggEHD()
