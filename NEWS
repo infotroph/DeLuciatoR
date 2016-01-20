@@ -1,3 +1,5 @@
+v. 0.0.2, 2016-01-20:
+	* Now compatible with ggplot2 >= 2.0 (1.0.x *should* still work, at least for now).
 v. 0.0.1, 2015-10-01: 
 	* Restructured previously existing code as an R package.
  	* Added new functions `get_dims` and `png_ggsized`.
