@@ -8,12 +8,12 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	# These values do not reliably give the real aspect ratio,
 	# but if both are unset then the ratio is unconstrained and we
 	# can exit without building--the plot will fill the whole area.
-	if ("ggplot" %in% class(ggobj)
+	if (inherits(ggobj, "ggplot")
 			&& is.null(ggobj$theme$aspect.ratio)
 			&& is.null(ggobj$coordinates$ratio)){
 		return(c(height=maxheight, width=maxwidth))}
 
-	if("ggplot" %in% class(ggobj)){
+	if(inherits(ggobj, "ggplot")){
 		g = ggplot_gtable(ggplot_build(ggobj))
 	}else if ("gtable" %in% class(ggobj)){
 		g = ggobj
