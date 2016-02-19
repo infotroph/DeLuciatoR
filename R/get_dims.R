@@ -11,7 +11,7 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	if (inherits(ggobj, "ggplot")
 			&& is.null(ggobj$theme$aspect.ratio)
 			&& is.null(ggobj$coordinates$ratio)){
-		return(c(height=maxheight, width=maxwidth))}
+		return(list(height=maxheight, width=maxwidth))}
 
 	if(inherits(ggobj, "ggplot")){
 		g = ggplot_gtable(ggplot_build(ggobj))
