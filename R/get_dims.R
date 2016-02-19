@@ -28,11 +28,22 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	n_cols = length(unique(panel_layout$l))
 
 	# panels have unit "null", but they carry ratio information anyway.
-	gw_units <- sapply(g$widths, attr, "unit")
-  	gh_units <- sapply(g$heights, attr, "unit")
+	if(inherits(g$widths, "unit.list")){
+		# any plot from ggplot2 v1.0.x, facet_null from ggplot2 v2.0.x
+		gw_units = sapply(g$widths, attr, "unit")
+		gh_units = sapply(g$heights, attr, "unit")
+		asp = (unlist(g$heights[gh_units == "null"])
+			/ unlist(g$widths[gw_units == "null"]))
+	}else if(inherits(g$widths, "unit")){
+		# facet_wrap or facet_grid from ggplot2 v2.0.x
+		gw_units = attr(g$widths, "unit")
+		gh_units = attr(g$heights, "unit")
+		asp = (as.numeric(g$heights[gh_units == "null"])
+			/ as.numeric(g$widths[gw_units == "null"]))
+	}else{
+		stop("Don't know how to extract units from class ", class(g$widths))
+	}
 
-	asp = (unlist(g$heights[gh_units == "null"])
-		/ unlist(g$widths[gw_units == "null"]))
 	if(length(unique(asp)) > 1){
 		stop("panels have different aspect ratios?!")}
 	asp = asp[1]
