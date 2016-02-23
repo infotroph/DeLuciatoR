@@ -13,18 +13,6 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 		return(list(height=maxheight, width=maxwidth))
 	}
 
-	# Supported plot types: Supposedly handles anything ggplot can produce.
-	# Probably works on other gtables, e.g. gridExtra::arrangeGrob,
-	# but these are less tested. TODO: Lattice output?
-	if(inherits(ggobj, "ggplot")){
-		g = ggplotGrob(ggobj)
-	}else if (inherits(ggobj, "gtable")){
-		g = ggobj
-	}else{
-		stop("Don't know how to get sizes for object of class ",
-			deparse(class(ggobj)))
-	}
-
 	# Open a temporary plotting device to do the calculations inside.
 	# This is for two reasons: Ultimately because unit conversions
 	# are device-dependent, but proximally because otherwise Grid will
@@ -38,6 +26,18 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 		res=120,
 		...)
 	on.exit({dev.off(); unlink(tmpf)})
+
+	# Supported plot types: Supposedly handles anything ggplot can produce.
+	# Probably works on other gtables, e.g. gridExtra::arrangeGrob,
+	# but these are less tested. TODO: Lattice output?
+	if(inherits(ggobj, "ggplot")){
+		g = ggplotGrob(ggobj)
+	}else if (inherits(ggobj, "gtable")){
+		g = ggobj
+	}else{
+		stop("Don't know how to get sizes for object of class ",
+			deparse(class(ggobj)))
+	}
 
 	# convertUnit treats null units as 0,
 	# so this sum gives the dimensions filled by *fixed-size* grobs.
