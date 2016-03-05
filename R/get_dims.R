@@ -9,7 +9,8 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	if(inherits(ggobj, "ggplot")
 			&& !isTRUE(ggobj$respect)
 			&& is.null(ggobj$theme$aspect.ratio)
-			&& is.null(ggobj$coordinates$ratio)){
+			&& is.null(ggobj$coordinates$ratio)
+			&& is.null(theme_get()$aspect.ratio)){
 		return(list(height=maxheight, width=maxwidth))
 	}
 
