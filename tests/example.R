@@ -1,4 +1,5 @@
 library(ggplot2)
+library(DeLuciatoR)
 library(gridExtra) # for multiplot demo
 library(ggplotTicks)
 
