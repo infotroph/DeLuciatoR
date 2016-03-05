@@ -17,7 +17,7 @@ The package currently provides:
 * One ggplot2 theme, mostly optimized for X-Y plots but probably suitable for most scatter/line plots and a good starting point for most bar/box/density plots.
 * Some functions to save correctly-shaped images of fixed-aspect-ratio plots: Specify a maximum height and width, get the biggest image that fits inside them. Compare this to the default pdf and png graphics functions, which make you specify an exact height & width (tedious to calculate for multipanel plots) and add oodles of whitespace if you get the ratio wrong.
 
-Please help me add to the toolbox! Let's add more shortcuts for common ggplot actioans, and some themes for Lattice plots... and for plain old base graphics too!
+Please help me add to the toolbox! Let's add more shortcuts for common ggplot actions, and some themes for Lattice plots... and for plain old base graphics too!
 
 
 ## Installation
