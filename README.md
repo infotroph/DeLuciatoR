@@ -81,7 +81,7 @@ See the `ggplotTicks` documentation for more details.
 
 ## Image size calculations
 
-Once you have a plot you like, save it. DeLuciator makes that easy:
+Once you have a plot you like, save it. DeLuciatoR makes that easy:
 
 ```{r}
 ggsave_fitmax(
