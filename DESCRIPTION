@@ -8,8 +8,8 @@ Maintainer: Chris Black <chris@ckblack.org>
 Description: Tools to help the DeLucia lab make R plots look the way Evan wants them. Notable changes from R defaults include much larger text, horizontal y-axis numbering, 4:3 panel aspect ratio, inward-facing ticks on all sides, colors always dichromat-safe & used only when necessary.
 License: MIT + file LICENSE
 Depends:
-	ggplot2 (>= 2.0.0)
+	ggplot2 (>= 1.0.0)
 Imports:
 	grid
 Suggests:
-	ggplotTicks (>= 0.1.0)
+	ggplotTicks (>= 0.0.2)
