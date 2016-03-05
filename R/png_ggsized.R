@@ -6,6 +6,7 @@ png_ggsized = function(
 		res=300,
 		units="in",
 		...){
+	.Deprecated(new="ggsave_fitmax", package="DeLuciatoR")
 	dims = get_dims(
 		ggobj=ggobj,
 		maxheight=maxheight,

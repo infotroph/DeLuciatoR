@@ -37,7 +37,7 @@
 	Chris Black <chris@ckblack.org>
 }
 \seealso{
-	\code{\link{png_ggsized}} for a convenience wrapper that calculates and plots in one step.
+	\code{\link{ggsave_fitmax}} for a convenience wrapper that calculates and plots in one step.
 }
 \examples{
 # Extract dimensions of an existing ggplot object:
