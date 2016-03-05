@@ -2,6 +2,11 @@ v. 0.1.0, 2016-03-04:
 	* get_dims should now respect aspect ratios set in global theme (#3).
 	* new function `ggsave_fitmax` to save fixed-aspect plots without extra whitespace.
 	* `png_ggsized` is deprecated. Use `ggsave_fitmax` instead.
+	* Argument changes in `theme_ggEHD`:
+		- Gains argument `base_family`, defaulting to "".
+		- Loses `...`, which only worked for elements not set by the theme.
+		- This means theme_ggEHD now takes the same arguments as the built-in ggplot themes.
+		- If you want to pass additional arguments in `...`, use `theme_ggEHD()+theme(...)`.
 v. 0.0.2, 2016-01-20:
 	* Now compatible with ggplot2 >= 2.0 (1.0.x *should* still work, at least for now).
 v. 0.0.1, 2015-10-01: 

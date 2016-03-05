@@ -7,14 +7,14 @@ DeLucia lab ggplot2 theme
 Style ggpplot2 elements to provide the format Evan most commonly requests. Actual Evan-approval of the result is not guaranteed.
 }
 \usage{
-	theme_ggEHD(base_size=18, ...)
+	theme_ggEHD(base_size=18, base_family="")
 }
 \arguments{
 	\item{base_size}{
 		Base font size for the theme, in points.
 	}
-	\item{...}{
-		Other arguments passed to \code{\link[ggplot2]{theme}}.
+	\item{base_family}{
+		Font family to use in \code{\link[ggplot2]{element_text}}.
 	}
 }
 \value{
