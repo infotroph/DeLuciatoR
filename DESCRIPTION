@@ -9,5 +9,7 @@ Description: Tools to help the DeLucia lab make R plots look the way Evan wants 
 License: MIT + file LICENSE
 Depends:
 	ggplot2 (>= 2.0.0)
+Imports:
+	grid
 Suggests:
 	ggplotTicks (>= 0.1.0)
