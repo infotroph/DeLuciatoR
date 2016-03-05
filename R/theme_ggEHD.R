@@ -1,5 +1,5 @@
 theme_ggEHD = function(base_size=18, ...){
-	(theme_bw(base_size=base_size) %+% theme(
+	thm = (theme_bw(base_size=base_size) %+% theme(
 		panel.grid.major = element_blank(),
 		panel.grid.minor = element_blank(),
 		rect = element_rect(size=rel(0.75)),
@@ -7,7 +7,6 @@ theme_ggEHD = function(base_size=18, ...){
 		axis.line = element_line(size=rel(1)),
 		axis.ticks = element_line(size=rel(1)),
 		axis.ticks.length = unit(-(base_size*0.5), "points"),
-		axis.ticks.margin = unit((base_size*1.5), "points"),
 		plot.margin = unit(base_size*c(1,1,1,1), "points"),
 		text=element_text( # Can we inherit some of these?
 			family="",
@@ -21,4 +20,13 @@ theme_ggEHD = function(base_size=18, ...){
 		aspect.ratio=0.75,
 		...
 	))
+
+	if(packageVersion("ggplot2") >= 2.0){
+		return(thm %+% theme(
+			axis.text.x = element_text(margin=margin(t=base_size*1.5, unit="points")),
+			axis.text.y = element_text(margin=margin(r=base_size*1.5, unit="points"))))
+	}else{
+		return(thm %+% theme(
+			axis.ticks.margin = unit((base_size*1.5), "points")))
+	}
 }

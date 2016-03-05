@@ -24,11 +24,11 @@
 	}
 }
 \details{
-	The motivating problem: When making a ggplot with fixed \emph{panel} aspect ratios, the overall dimensions of the full \emph{plot} still depend on the dimensions of other plot elements: axes, legends, titles, etc. In a facetted plot, this gets even trickier: "OK, it has three panels each with aspect ratio of 1.5, so that adds up to... wait, does every panel have its own y-axis, or just the leftmost one?".
+	The motivating problem: When making a ggplot with fixed \emph{panel} aspect ratios, the overall dimensions of the full \emph{plot} still depend on the dimensions of other plot elements: axes, legends, titles, etc. In a facetted plot, this gets even trickier: "OK, it has three panels each with aspect ratio 1.5, so that adds up to... wait, does every panel get its own y-axis, or just the leftmost one?".
 
 	\code{\link[ggplot2]{ggplot}} apparently computes absolute dimensions for everything \emph{except} the panels, so the approach taken here is to build the plot inside a throwaway graphical device, subtract off the parts of the image area used by non-panel elements, then divide the remainder up between panels. One dimension will be constrained by the size of the throwaway device, and we can then calculate the other dimension from the panel aspect ratio.
 
-	The biggest known issue with this approach is that it's inefficient, because we have to built the plot twice. I don't know of any way around this. Do you?
+	The biggest known issue with this approach is that it's inefficient, because we have to build the plot twice. I don't know of any way around this. Do you?
 }
 \value{
 	A list containing actual image dimensions \code{height} and \code{width}, both numeric and with the same units as \code{units}.
@@ -37,7 +37,7 @@
 	Chris Black <chris@ckblack.org>
 }
 \seealso{
-	\code{\link{png_ggsized}} for a convenience wrapper that calculates and plots in one step.
+	\code{\link{ggsave_fitmax}} for a convenience wrapper that calculates and plots in one step.
 }
 \examples{
 # Extract dimensions of an existing ggplot object:
@@ -50,7 +50,8 @@ d
 # $width
 # [1] 8
 
-# ==> Oops, right. we want this plot to be wider than it is tall.
+# ==> "Oops, right. we want this plot to be wider than it is tall."
+
 d=get_dims(a, maxheight=8, maxwidth=12)
 d
 # $height

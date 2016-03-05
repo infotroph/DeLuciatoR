@@ -1,10 +1,13 @@
-\name{png_ggized}
+\name{png_ggized-deprecated}
+\alias{png_ggized-deprecated}
 \alias{png_ggsized}
 \title{
 	Save ggplot to correctly-shaped PNG
 }
 \description{
 	When a ggplot has a fixed \emph{panel} aspect ratio, it can be a pain to find the right dimensions for the whole \emph{plot} (including axes, margins, legends, etc) when saving it to a fixed-size graphical device. png_ggized takes a ggplot object and saves it as the largest PNG that fits inside the specified \emph{maximum} height and width.
+
+	DEPRECATED: Use \code{\link{ggsave_fitmax}} instead; it supports more output formats and is more flexible. If you are updating old code, notice that the arguments to \code{ggsave_fitmax} are named and ordered differently than those to \code{png_ggsized}.
 }
 \usage{
 	png_ggsized(ggobj, filename, 
@@ -55,3 +58,4 @@ png_ggized(a, filename="a.png", maxheight=8, maxwidth=12)
 png_ggsized(a, filename="aa.png", maxheight=6, maxwidth=9, res=150)
 }
 }
+\keyword{deprecated}

@@ -1,12 +1,16 @@
 Package: DeLuciatoR
 Type: Package
-Title: Make R plots match DeLucia publication specs
-Version: 0.0.1
-Date: 2015-10-01
+Title: Make R Plots Match DeLucia Publication Specs
+Version: 0.1.0
+Date: 2016-02-18
 Author: Chris Black
 Maintainer: Chris Black <chris@ckblack.org>
 Description: Tools to help the DeLucia lab make R plots look the way Evan wants them. Notable changes from R defaults include much larger text, horizontal y-axis numbering, 4:3 panel aspect ratio, inward-facing ticks on all sides, colors always dichromat-safe & used only when necessary.
 License: MIT + file LICENSE
 Depends:
-	ggplot2,
+	ggplot2 (>= 1.0.0)
+Imports:
 	grid
+Suggests:
+	ggplotTicks (>= 0.0.2),
+	gridExtra
