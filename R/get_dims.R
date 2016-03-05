@@ -65,18 +65,18 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	# when only one side is in null units. Does g$respect change behavior?
 	# 
 	# Maybe: If height fixed and width has nulls, return list(min(maxheight, known_ht), max_colwds)?
-	if(length(null_rowhts) == 0){
-		# All rows have fixed height, compute 
-		maxheight = min(maxheight, known_ht)
-		free_ht = 0
-		max_rowhts = g$heights
-	}
-	if(length(null_rowhts) == 0){
-		# All cols have fixed width
-		maxwidth = min(maxwidth, known_wd)
-		free_wd = 0
-		max_colwds = g$widths
-	}
+	# if(length(null_rowhts) == 0){
+	# 	# All rows have fixed height, compute
+	# 	maxheight = min(maxheight, known_ht)
+	# 	free_ht = 0
+	# 	max_rowhts = g$heights
+	# }
+	# if(length(null_rowhts) == 0){
+	# 	# All cols have fixed width
+	# 	maxwidth = min(maxwidth, known_wd)
+	# 	free_wd = 0
+	# 	max_colwds = g$widths
+	# }
 
 	max_rowhts = free_ht / sum(null_rowhts) * null_rowhts
 	max_colwds = free_wd / sum(null_colwds) * null_colwds
