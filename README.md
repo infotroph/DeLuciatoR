@@ -57,24 +57,42 @@ plot(p + theme_ggEHD(base_size=24)) # "...better, but the legend needs to move..
 p = p + theme_ggEHD(base_size=24) + theme(legend.position=c(0.85, 0.25)) # "...Aaah, good."
 ```
 
+![Iris dataset styled three ways](demo_images/iris.png)
 
 ## Putting ticks on all sides
 
-The ggplot2 package provides no built-in way to put ticks on all sides of the plot. To get around this, I wrote [an R package](https://github.com/infotroph/ggplotTicks) that mirrors the axes after the rest of the plot is constructed. I will eventually make this package use it automatically; for now, grab it from GitHub and wrap your plotting commands in a call to `mirror_ticks`:
+The ggplot2 package provides no built-in way to put ticks on all sides of the plot. To get around this, I wrote [an R package](https://github.com/infotroph/ggplotTicks) that mirrors the axes after the rest of the plot is constructed. I will eventually make this package use it automatically; for now, grab it from GitHub and wrap your plots in a call to `mirror_ticks`:
 
 ```{r}
 install_github("infotroph/ggplotTicks")
 library("ggplotTicks")
-p_four = mirror_ticks(p)
+
+p_two = (ggplot(CO2, aes(conc, uptake, color=Treatment))
+	+ geom_point()
+	+ facet_wrap(~Type)
+	+ theme_ggEHD())
+
+p_four = mirror_ticks(p_two)
 ```
 `p_four` is now a modified ggplot, with plot ticks on all four sides. It behaves *almost* exactly like a ggplot, *except* that adding or removing facets will remove the mirroring:
 
 ```{r}
+# has ticks on all sides
 plot(p_four)
-plot(p_four + xlab("Ceci n'est pas une axis")) # has ticks on all sides
-plot(p_four + facet_wrap(~fac)) # loses mirroring; identical to p + facet_wrap(~fac)
-plot(mirror_ticks(p_four + facet_wrap(~fac2))) # has ticks on all sides
+
+# has ticks on all sides
+plot(p_four
+	+ coord_trans(x="log", y="log")
+	+ xlab("Ceci n'est pas une linear axis"))
+
+# loses mirroring; identical to p_two + facet_wrap(~)
+plot(p_four + facet_wrap(~Plant))
+
+# has ticks on all sides
+plot(mirror_ticks(p_four + facet_wrap(~Plant)))
 ```
+
+![CO2 dataset plotted four ways](demo_images/co2.png)
 
 See the `ggplotTicks` documentation for more details.
 

@@ -81,10 +81,11 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 
 	max_rowhts = free_ht / sum(null_rowhts) * null_rowhts
 	max_colwds = free_wd / sum(null_colwds) * null_colwds
-	
+	# print(c("max_rowhts: ", max_rowhts, " max_colwds: ", max_colwds))
 		
 	rowhts_if_maxwd = max_colwds[1] * panel_asps[,1]
 	colwds_if_maxht = max_rowhts[1] / panel_asps[1,]
+	# print(c("rowhts_if_maxwd: ", rowhts_if_maxwd, " colwds_if_maxht: ", colwds_if_maxht))
 
 	height = min(maxheight, known_ht + sum(rowhts_if_maxwd))
 	width = min(maxwidth, known_wd + sum(colwds_if_maxht))
