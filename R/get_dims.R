@@ -40,8 +40,12 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 			deparse(class(ggobj)))
 	}
 
-	# convertUnit treats null units as 0,
-	# so this sum gives the dimensions filled by *fixed-size* grobs.
+	# Our approach relies on the quirk that
+	# grid::convertUnit treats null units as 0.
+	# If this changes, it will be rewrite time.
+	stopifnot(grid::convertUnit(unit(1, "null"), "in", "x", valueOnly=T) == 0)
+
+	# This sum gives the dimensions filled by *fixed-size* grobs.
 	# We'll divide the remaining available space between rows/columns
 	# in proportion to their size in null units.
 	known_ht = sum(grid::convertHeight(g$heights, units, valueOnly=TRUE))
@@ -50,13 +54,19 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	free_ht = maxheight - known_ht
 	free_wd = maxwidth - known_wd
 
-	# Find rows & columns specified in null units. 
-	# TODO: handle nulls inside unit.arithmetic, e.g. "1null+3cm", or not?
-	# Could arise from user arguments to gtable or gridExtra::arrangeGrob,
-	# but both seem buggy (null part ignored?) even without a get_dims call.
-	null_rowhts = c(unlist(g$heights[grepl("null", g$heights)]))
-	null_colwds = c(unlist(g$widths[grepl("null", g$widths)]))
-	
+	# Find rows & columns specified in null units.
+	# This is a convoluted process because unit names are potentially many layers deep in
+	# unit.arithmetic or unit.list objects. Rather than access them directly, we'll compute
+	# fixed dimensions twice, once as normal and once after replacing all the null units
+	# with inches. Then the difference between these, even though reported as inches,
+	# is the dimension in nulls.
+	all_null_rowhts = (grid::convertHeight(.null_as_if_inch(g$heights), "in", valueOnly=TRUE)
+		- grid::convertHeight(g$heights, "in", valueOnly=TRUE))
+	all_null_colwds = (grid::convertWidth(.null_as_if_inch(g$widths), "in", valueOnly=TRUE)
+		- grid::convertWidth(g$widths, "in", valueOnly=TRUE))
+	null_rowhts = all_null_rowhts[all_null_rowhts > 0]
+	null_colwds = all_null_colwds[all_null_colwds > 0]
+
 	panel_asps = matrix(null_rowhts, ncol=1) %*% matrix(1/null_colwds, nrow=1)
 
 	# Handle cases where height or width is fully determined. 
@@ -91,4 +101,49 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	width = min(maxwidth, known_wd + sum(colwds_if_maxht))
 
 	return(list(height=height, width=width))
+}
+
+# Internal helper function:
+# Treat all null units in a unit object as if they were inches.
+# This is a bad idea in gneral, but I use it here as a workaround.
+# Extracting unit names from non-atomic unit objects is a pain,
+# so questions like "which rows of this table layout have null heights?"
+# are hard to answer. To work around it, I exploit an (undocumented!)
+# quirk: When calculating the size of a table layout inside a Grid plot,
+# convertUnit(...) treats null units as zero.
+# Therefore
+#	(convertHeight(grob_height, "in", valueOnly=TRUE)
+#	- convertHeight(null_as_if_inch(grob_height), "in", valueOnly=TRUE))
+# does the inverse of convertUnit: It gives the sum of all *null* heights
+# in the object, treating *fixed* units as zero.
+#
+# Warning: I repeat, this approach ONLY makes any sense if
+#	convertUnit(unit(1, "null"), "in", "x", valueOnly=T) == 0
+# is true. Please check that it is before calling this code.
+.null_as_if_inch = function(u){
+	if(!grid::is.unit(u)) return(u)
+	if(is.atomic(u)){
+		if("null" %in% attr(u, "unit")){
+			d = attr(u, "data")
+			u = unit(
+				x=as.vector(u),
+				units=gsub("null", "in", attr(u, "unit")),
+				data=d)
+		}
+		return(u)
+	}
+	if(inherits(u, "unit.arithmetic")){
+		l = .null_as_if_inch(u$arg1)
+		r = .null_as_if_inch(u$arg2)
+		if(is.null(r)){
+			args=list(l)
+		}else{
+			args=list(l,r)
+		}
+		return(do.call(u$fname, args))
+	}
+	if(inherits(u, "unit.list")){
+		return(do.call(grid::unit.c, lapply(u, .null_as_if_inch)))
+	}
+	return(u)
 }

@@ -1,3 +1,5 @@
+v. 0.1.1, 2016-05-23:
+	* bug fix: get_dims no longer fails on plots with null units inside more complex unit objects (e.g. multipanel ggplots).
 v. 0.1.0, 2016-03-04:
 	* get_dims should now respect aspect ratios set in global theme (#3).
 	* new function `ggsave_fitmax` to save fixed-aspect plots without extra whitespace.
