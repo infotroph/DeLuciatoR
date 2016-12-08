@@ -19,6 +19,7 @@ theme_ggEHD = function(base_size=18, base_family=""){
 		axis.text=element_text(size=rel(0.8), color = "black"),
 		axis.title.x=element_text(vjust=-1),
 		axis.title.y=element_text(vjust=2),
+		legend.key=element_blank(),
 		aspect.ratio=0.75
 	))
 
