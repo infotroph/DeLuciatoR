@@ -12,9 +12,11 @@ theme_ggEHD = function(base_size=18, base_family=""){
 			family=base_family,
 			face="plain",
 			size=base_size,
+			color="black",
 			hjust=0.5,
 			vjust=0.5,
 			angle=0),
+		axis.text=element_text(size=rel(0.8), color = "black"),
 		axis.title.x=element_text(vjust=-1),
 		axis.title.y=element_text(vjust=2),
 		aspect.ratio=0.75
