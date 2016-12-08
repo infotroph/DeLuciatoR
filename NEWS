@@ -1,3 +1,6 @@
+v. 0.1.2, 2016-12-07:
+	* Text now explicitly set to black instead of inheriting whatever theme_bw gives it (#12)
+	* Remove boxes around legend keys (#11)
 v. 0.1.1, 2016-05-23:
 	* bug fix: get_dims no longer fails on plots with null units inside more complex unit objects (e.g. multipanel ggplots).
 v. 0.1.0, 2016-03-04:
