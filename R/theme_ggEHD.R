@@ -1,10 +1,12 @@
 theme_ggEHD = function(base_size=18, base_family=""){
 	thm = (theme_bw(base_size=base_size, base_family=base_family) %+% theme(
+		panel.border = element_rect(size=2),
 		panel.grid.major = element_blank(),
 		panel.grid.minor = element_blank(),
 		rect = element_rect(size=rel(0.75)),
 		line = element_line(size=rel(1)),
-		axis.line = element_line(size=rel(1)),
+		#axis.line = element_line(size=rel(1)),
+        	axis.line = element_blank(),
 		axis.ticks = element_line(size=rel(1),
 					 color = "black"),
 		axis.ticks.length = unit(-(base_size*0.5), "points"),
