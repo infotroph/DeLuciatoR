@@ -6,8 +6,7 @@ theme_ggEHD = function(base_size=18, base_family=""){
 		panel.grid.minor = element_blank(),
 		rect = element_rect(size=rel(0.75)),
 		line = element_line(size=rel(1)),
-		#axis.line = element_line(size=rel(1)),
-        	axis.line = element_blank(),
+		axis.line = element_blank(), # provided by panel.border instead
 		axis.ticks = element_line(size=rel(1),
 					 color="black"),
 		axis.ticks.length = unit(-(base_size*0.5), "points"),
