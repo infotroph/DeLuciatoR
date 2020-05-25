@@ -1,7 +1,7 @@
 Package: DeLuciatoR
 Type: Package
 Title: Make R Plots Match DeLucia Publication Specs
-Version: 0.1.2
+Version: 0.1.3
 Date: 2016-12-07
 Author: Chris Black
 Maintainer: Chris Black <chris@ckblack.org>
