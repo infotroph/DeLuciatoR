@@ -43,7 +43,9 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	# Our approach relies on the quirk that
 	# grid::convertUnit treats null units as 0.
 	# If this changes, it will be rewrite time.
-	stopifnot(grid::convertUnit(unit(1, "null"), "in", "x", valueOnly=T) == 0)
+	stopifnot(
+		grid::convertUnit(grid::unit(1, "null"), "in", "x", valueOnly = TRUE)
+		== 0)
 
 	# This sum gives the dimensions filled by *fixed-size* grobs.
 	# We'll divide the remaining available space between rows/columns
@@ -55,19 +57,33 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 	free_wd = maxwidth - known_wd
 
 	# Find rows & columns specified in null units.
-	# This is a convoluted process because unit names are potentially many layers deep in
-	# unit.arithmetic or unit.list objects. Rather than access them directly, we'll compute
-	# fixed dimensions twice, once as normal and once after replacing all the null units
-	# with inches. Then the difference between these, even though reported as inches,
-	# is the dimension in nulls.
-	all_null_rowhts = (grid::convertHeight(.null_as_if_inch(g$heights), "in", valueOnly=TRUE)
-		- grid::convertHeight(g$heights, "in", valueOnly=TRUE))
-	all_null_colwds = (grid::convertWidth(.null_as_if_inch(g$widths), "in", valueOnly=TRUE)
-		- grid::convertWidth(g$widths, "in", valueOnly=TRUE))
-	null_rowhts = all_null_rowhts[all_null_rowhts > 0]
-	null_colwds = all_null_colwds[all_null_colwds > 0]
+	if (packageVersion("grid") >= "4.0.0") {
+		# Grid units changed in 4.0.0 and broke old method,
+		# but fortunately also provided a much easier new way
+		null_rowhts <- as.numeric(g$heights[grid::unitType(g$heights) == "null"])
+		null_colwds <- as.numeric(g$widths[grid::unitType(g$widths) == "null"])
+		panel_asps <- (
+			matrix(null_rowhts, ncol = 1)
+			%*% matrix(1 / null_colwds, nrow = 1))
+	} else {
+		# This is a convoluted process in grid < 4.0 because unit names are
+		# potentially many layers deep in unit.arithmetic or unit.list objects.
+		# Rather than access them directly, we compute fixed dimensions twice,
+		# once as normal and once after replacing all null units with inches.
+		# Then the difference between these, even though reported as inches,
+		# is the dimension in nulls.
+		all_null_rowhts <- (
+			grid::convertHeight(.null_as_if_inch(g$heights), "in", valueOnly = TRUE)
+			- grid::convertHeight(g$heights, "in", valueOnly = TRUE))
+		all_null_colwds <- (
+			grid::convertWidth(.null_as_if_inch(g$widths), "in", valueOnly = TRUE)
+			- grid::convertWidth(g$widths, "in", valueOnly = TRUE))
+		null_rowhts <- all_null_rowhts[all_null_rowhts > 0]
+		null_colwds <- all_null_colwds[all_null_colwds > 0]
 
-	panel_asps = matrix(null_rowhts, ncol=1) %*% matrix(1/null_colwds, nrow=1)
+		panel_asps <- (
+			matrix(null_rowhts, ncol = 1) %*% matrix(1 / null_colwds, nrow = 1))
+	}
 
 	# Handle cases where height or width is fully determined. 
 	# TODO: Incomplete! As written, these cases have a zero-element panel_asps
@@ -105,7 +121,7 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 
 # Internal helper function:
 # Treat all null units in a unit object as if they were inches.
-# This is a bad idea in gneral, but I use it here as a workaround.
+# This is a bad idea in general, but I use it here as a workaround.
 # Extracting unit names from non-atomic unit objects is a pain,
 # so questions like "which rows of this table layout have null heights?"
 # are hard to answer. To work around it, I exploit an (undocumented!)
@@ -121,6 +137,7 @@ get_dims = function(ggobj, maxheight, maxwidth=maxheight, units="in", ...){
 #	convertUnit(unit(1, "null"), "in", "x", valueOnly=T) == 0
 # is true. Please check that it is before calling this code.
 .null_as_if_inch = function(u){
+	stopifnot(packageVersion("grid") < "4.0")
 	if(!grid::is.unit(u)) return(u)
 	if(is.atomic(u)){
 		if("null" %in% attr(u, "unit")){
